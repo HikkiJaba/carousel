@@ -45,20 +45,26 @@
     </main>
 
     <div class="options-panel" id="options-size">
-        <div class="size-options">
-            <label for="size">Размер:</label>
-            <select id="size">
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-            </select>
+        <div class="select">
+            <div class="size-options">
+                <label for="size">Размер:</label>
+                <select id="size">
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                </select>
+            </div>
+            <div class="color-options">
+                <label for="color">Цвет:</label>
+                <input type="color" id="color" name="color" value="#ffffff">
+            </div>
         </div>
-        <div class="color-options">
-            <label for="color">Цвет:</label>
-            <input type="color" id="color" name="color" value="#ffffff">
+        <div>
+            <input type="radio" id="wardrobe" name="options" value="wardrobe" style="display: none;">
+            <label for="wardrobe" class="wardrobe-btn">Гардероб</label>
+            <input type="radio" id="catalog" name="options" value="catalog" style="display: none;">
+            <label for="catalog" class="catalog-btn">Каталог</label>
         </div>
-        <button class="wardrobe-btn">Гардероб</button>
-        <button class="catalog-btn">Каталог</button>
     </div>
 
     <script src="script.js"></script>
