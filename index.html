@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Carousel</title>
+</head>
+<body>
+    <header>
+        <div class="burger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="header-div">
+            <h1>Конструктор образов</h1>
+            <button class="save">Сохранить</button>
+            <div>
+                <div><data></data></div>
+                <a class="premuim">Перейти на PREMIUM</a>
+                <i class="fas fa-user"></i> 
+            </div>
+        </div>
+    </header>
+
+    <aside class="">
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/dress-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/fashion-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/hat-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/fashion2-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/woman-clothes-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/skirt-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/high-heels-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/fashion3-icon.png" class="icon-img"></button>
+        <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/hand-bag-icon.png" class="icon-img"></button>
+    </aside>
+
+    <main>
+        <img class="mannequin" src="./img/mannequin.jpg"/>
+    </main>
+
+    <div class="options-panel" id="options-size">
+        <div class="size-options">
+            <label for="size">Размер:</label>
+            <select id="size">
+                <option value="s">S</option>
+                <option value="m">M</option>
+                <option value="l">L</option>
+            </select>
+        </div>
+        <div class="color-options">
+            <label for="color">Цвет:</label>
+            <input type="color" id="color" name="color" value="#ffffff">
+        </div>
+        <button class="wardrobe-btn">Гардероб</button>
+        <button class="catalog-btn">Каталог</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
