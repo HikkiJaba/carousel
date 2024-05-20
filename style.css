@@ -1,12 +1,8 @@
-
-
-
-
 body {
     font-size: 14px;
     font-family: 'Raleway', sans-serif;
     background-color: #FCFCFC;
-    padding: 35px;
+    padding: 15px 35px;
     color: #6B7276;
 }
 
@@ -215,7 +211,7 @@ aside img {
 main {
     display: flex;
     justify-content: end;
-    padding-right: 450px;
+    padding-right: 600px;
 }
 
 .mannequin {
