@@ -1,9 +1,9 @@
 body {
     font-size: 14px;
     font-family: 'Raleway', sans-serif;
-    background-color: #FCFCFC;
     padding: 15px 35px;
     color: #6B7276;
+    background-image: url("./img/bg.jpg");
 }
 
 .icon-img {
@@ -70,7 +70,7 @@ aside {
     z-index: 1 !important;
     flex-direction: column;
     position: fixed;
-    top: 90px;
+    top: 80px;
     left: -250px;
     width: 80px;
     background-color: #f3f1f1;
@@ -157,9 +157,9 @@ aside img {
 .options-panel {
     display: flex;
     position: fixed;
-    height: 550px;
+    height: 520px;
     width: 400px;
-    top: 90px;
+    top: 80px;
     left: 140px;
     padding: 35px 15px;
     background-color: #ffffff;
@@ -243,9 +243,15 @@ label {
 
 
 #main-container {
-    margin-left: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c9d7e7d1 !important;
 }
 
+
+
+
 #canvas {
-  
+    margin-left: 300px;
 }
