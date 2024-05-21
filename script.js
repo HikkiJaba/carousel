@@ -56,3 +56,17 @@ iconBtns.forEach(btn => {
         this.classList.add('active-icon-btn');
     });
 });
+
+document.getElementById('play-button').addEventListener('click', function() {
+    var audio = document.getElementById('audio');
+    if (audio.paused) {
+        audio.play();
+        this.classList.remove('play');
+        this.classList.add('pause');
+    } else {
+        audio.pause();
+        this.classList.remove('pause');
+        this.classList.add('play');
+    }
+});
+
