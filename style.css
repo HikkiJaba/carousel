@@ -401,7 +401,6 @@ label {
     }
     
     header {
-        max-width: 800px;
         display: flex;
         z-index: 2;
         background-color: #f3f1f1;
@@ -415,12 +414,13 @@ label {
     .header-div {
         display: flex;
         justify-content: space-between;
-        width: 100px;
         flex-direction: row;
         align-items: center;
     }
     
     .premuim {
+        text-align: center;
+        height: auto;
         padding: 5px 15px;
         border-right: 2px;
         margin-right: 7px;
@@ -499,8 +499,11 @@ label {
     }
 
     canvas {
-        width: 340px !important;
+        width: auto !important;
         height: 390px !important;
     }
 
+    main {
+        margin-top: 400px !important;
+    }
 }
