@@ -74,7 +74,7 @@
  
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 20; 
+    camera.position.z = 150; 
     var width = window.innerWidth * 0.8;
     var height = window.innerHeight * 0.8;
     var renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -94,7 +94,7 @@
 
     var loader = new THREE.OBJLoader();
     loader.load(
-        './uploads_files_5123590_Female_Body_Base_Model.obj',
+        './telokar.obj',
         function (obj) {
        
             var geometry = obj.children[0].geometry;
