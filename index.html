@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="//code.jivo.ru/widget/ON8IaJCfkq" async></script>
     <link rel="icon" href="">
-    <title>Carousel</title>
+    <title>Конструктор образов</title>
 </head>
 <body>
     <header>
@@ -23,7 +23,7 @@
             <div>
                 <div><data></data></div>
                 <a class="premuim">Перейти на PREMIUM</a>
-                <i class="fas fa-user"></i> 
+                <i class="fas fa-user"></i>
             </div>
         </div>
     </header>
@@ -40,8 +40,8 @@
         <button class="icon-btn" onclick="toggleOptionsPanel('size')"><img src="./img/icons/hand-bag-icon.png" class="icon-img"></button>
     </aside>
 
-    <main>
-        <img class="mannequin" src="./img/mannequin.jpg"/>
+    <main id="main-container">
+        <canvas id="canvas"></canvas>
     </main>
 
     <div class="options-panel" id="options-size">
@@ -67,6 +67,69 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+ 
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20; 
+    var width = window.innerWidth * 0.8;
+    var height = window.innerHeight * 0.8;
+    var renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0); 
+    document.getElementById("main-container").appendChild(renderer.domElement);
+
+  
+     var light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(1, 1, 1).normalize();
+    scene.add(light);
+
+
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    scene.add(ambientLight);
+
+
+    var loader = new THREE.OBJLoader();
+    loader.load(
+        './uploads_files_5123590_Female_Body_Base_Model.obj',
+        function (obj) {
+       
+            var geometry = obj.children[0].geometry;
+
+    
+            var box = new THREE.Box3().setFromBufferAttribute(geometry.attributes.position);
+            var center = box.getCenter(new THREE.Vector3());
+
+       
+            obj.position.sub(center);
+
+            scene.add(obj);
+        },
+        function (xhr) {
+        },
+        function (error) {
+            console.error('Произошла ошибка при загрузке модели', error);
+        }
+    );
+
+ 
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false; 
+    controls.update();
+
+  
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update(); 
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+
+    
+    <script src="./script.js"></script>
 </body>
 </html>
