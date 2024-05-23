@@ -69,4 +69,6 @@ document.getElementById('play-button').addEventListener('click', function() {
         this.classList.add('play');
     }
 });
-
+setTimeout(() => {
+    document.querySelector('#main-container>canvas').style.cursor = 'grab'
+}, 100)

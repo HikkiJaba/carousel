@@ -4,6 +4,10 @@ body {
     padding: 15px 35px;
     color: #6B7276;
     background-image: url("./img/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
     margin: 0; /* Убираем отступы по умолчанию */
 }
 
@@ -12,7 +16,17 @@ body {
 }
 
 h1 {
-    font-size: 16px;
+    font-size: 22px;
+    width: 33%;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.logo {
+    color: #6B7276;
 }
 
 header {
@@ -29,13 +43,16 @@ header {
 .header-div {
     display: flex;
     justify-content: space-between;
-    width: 800px;
+    width: 33%;
     flex-direction: row;
     align-items: center;
 }
 
 .premuim {
-    padding: 5px 15px;
+    color: #6B7276;
+    padding: 5px 20px;
+    font-weight: 600;
+    text-align: center;
     border-right: 2px;
     margin-right: 7px;
     border: 1px solid #6B7276;
@@ -52,6 +69,8 @@ header {
     padding: 5px 15px;
     border: 1px solid #6B7276;
     border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
     background: linear-gradient(180deg, #DFEEFF 0%, rgba(226, 240, 255, 0.65) 100%);
 }
 
@@ -73,11 +92,12 @@ aside {
     position: fixed;
     top: 98px;
     left: -250px;
-    width: 80px;
+    width: 90px;
     background-color: #f3f1f1;
     transition: left 0.3s ease;
     height: 550px;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-color: rgba(226, 240, 255, 0.65) #1e1e1e4d;
     scrollbar-width: thin;
 }
@@ -109,7 +129,9 @@ aside img {
     margin: 10px 0;
 }
 
-
+.burger-wrapper {
+    width: 33%;
+}
 .burger-menu {
     width: 30px;
     height: 30px;
@@ -251,6 +273,7 @@ input[type="radio"]:checked + label {
 main {
     display: flex;
     justify-content: end;
+    overflow: hidden;
 }
 
 label {
@@ -276,7 +299,6 @@ label {
 
 .audio-player {
     position: relative;
-    width: 50%;
 }
 
 #audio {
@@ -284,7 +306,6 @@ label {
 }
 
 #play-button {
-    margin-left: 150px;
     width: 40px; 
     height: 40px;
     background: linear-gradient(180deg, #b3d1f4 0%, rgba(166, 209, 255, 0.958) 100%);
@@ -302,10 +323,14 @@ label {
 
 #play-button.play::after {
     content: '\25B6'; 
+    position: relative;
+    left: 2px;
 }
 
 #play-button.pause::after {
     content: '\275A\275A'; 
+    position: relative;
+    bottom: 2px;
 }
 
 
