@@ -57,18 +57,38 @@ iconBtns.forEach(btn => {
     });
 });
 
-document.getElementById('play-button').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var audio = document.getElementById('audio');
-    if (audio.paused) {
-        audio.play();
-        this.classList.remove('play');
-        this.classList.add('pause');
-    } else {
-        audio.pause();
-        this.classList.remove('pause');
-        this.classList.add('play');
-    }
+    var playButton = document.getElementById('play-button');
+
+    playButton.addEventListener('click', function() {
+        if (audio.paused) {
+            audio.play().then(function() {
+                playButton.classList.remove('play');
+                playButton.classList.add('pause');
+                console.log('Аудио воспроизводится');
+            }).catch(function(error) {
+                console.error('Ошибка воспроизведения аудио:', error);
+            });
+        } else {
+            audio.pause();
+            playButton.classList.remove('pause');
+            playButton.classList.add('play');
+            console.log('Аудио на паузе');
+        }
+    });
+
+    // Пытаемся запустить аудио при загрузке страницы
+    audio.play().then(function() {
+        playButton.classList.remove('play');
+        playButton.classList.add('pause');
+        console.log('Аудио воспроизводится при загрузке страницы');
+    }).catch(function(error) {
+        console.error('Автозапуск аудио не удался:', error);
+    });
 });
+
 setTimeout(() => {
     document.querySelector('#main-container>canvas').style.cursor = 'grab'
 }, 100)
+
