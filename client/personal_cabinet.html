@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html">Конструктор костюмов</a>
+    <h1>Личный кабинет</h1>
+    <a href="#" id="logout">Выйти</a>
+  </header>
+  <div class="personal-cabinet-container">
+    <h2>Добро пожаловать в личный кабинет!</h2>
+    <p>Здесь вы можете управлять своими данными.</p>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var logoutLink = document.getElementById("logout");
+
+      logoutLink.addEventListener("click", function () {
+        localStorage.removeItem('username'); 
+        window.location.href = 'index.html'; 
+      });
+    });
+  </script>
+</body>
+</html>

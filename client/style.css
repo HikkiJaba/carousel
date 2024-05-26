@@ -334,6 +334,84 @@ label {
     bottom: 2px;
 }
 
+/*Registration*/
+
+.registration-container {
+    
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .registration-container h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .registration-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .registration-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registration-container label {
+    margin-bottom: 10px;
+  }
+  
+  .registration-container input[type="text"],
+  .registration-container input[type="password"],
+  .registration-container button {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .registration-container button {
+    background-color: #839bb6;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .registration-container button:hover {
+    background-color: #65778b;
+  }
+
+
+/* LK */
+.personal-cabinet-container {
+    background-color: white;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .personal-cabinet-container h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .personal-cabinet-container p {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+  
+
+/* Adap */
+
 
 @media screen and (max-width: 1024px) {
     .open {

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация / Вход</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="registration-container">
+    <h2>Регистрация / Вход</h2>
+    <form id="login-form" action="#" method="POST">
+      <label for="username">Имя пользователя:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Войти</button>
+      <button type="button" id="register">Зарегистрироваться</button>
+    </form>
+  </div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Проверка на наличие авторизованного пользователя
+      if (localStorage.getItem('username')) {
+        window.location.href = 'personal_cabinet.html';
+      }
+
+      var registerButton = document.getElementById("register");
+      var loginForm = document.getElementById("login-form");
+
+      registerButton.addEventListener("click", function () {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        fetch('http://localhost:5500/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        })
+        .then(response => response.text())
+        .then(data => {
+          if (data === 'Регистрация успешно выполнена!') {
+            alert(data);
+            localStorage.setItem('username', username); // Сохраняем пользователя в localStorage
+            window.location.href = 'personal_cabinet.html';
+          } else {
+            alert(data);
+          }
+        })
+        .catch(error => console.error('Ошибка:', error));
+      });
+
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        fetch('http://localhost:5500/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        })
+        .then(response => response.text())
+        .then(data => {
+          if (data === 'Вход успешно выполнен!') {
+            alert(data);
+            localStorage.setItem('username', username); // Сохраняем пользователя в localStorage
+            window.location.href = 'personal_cabinet.html';
+          } else {
+            alert(data);
+          }
+        })
+        .catch(error => console.error('Ошибка:', error));
+      });
+    });
+  </script>
+</body>
+</html>
