@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Готовые костюмы</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      height: auto;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    #costume-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .costume-card {
+        height: 30%;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 10px;
+      padding: 15px;
+      width: 200px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer; /* Добавляем стиль указателя для карточки */
+    }
+
+    .costume-card img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    .description {
+      overflow: hidden; /* Скрытие контента, который выходит за пределы блока */
+      transition: max-height 0.3s ease; /* Анимация изменения максимальной высоты */
+      max-height: 0 !important; /* Начальная максимальная высота 0 */
+    }
+
+    .description.open {
+      max-height: 100% !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Готовые костюмы в наличии</h1>
+  </header>
+  <main id="costume-container">
+    <!-- Карточки костюмов будут добавлены здесь через JavaScript -->
+  </main>
+  <script>
+    async function fetchCostumes() {
+      try {
+        const response = await fetch('http://localhost:5500/costumes');
+        const costumes = await response.json();
+
+        // Фильтрация дубликатов по имени костюма
+        const uniqueCostumes = [];
+        const names = new Set();
+
+        for (const costume of costumes) {
+          if (!names.has(costume.name)) {
+            names.add(costume.name);
+            uniqueCostumes.push(costume);
+          }
+        }
+
+        const container = document.getElementById('costume-container');
+
+        // Переменная для отслеживания индекса открытой карточки
+        let openedCardIndex = -1;
+
+        uniqueCostumes.forEach((costume, index) => {
+          const card = document.createElement('div');
+          card.className = 'costume-card';
+
+          const img = document.createElement('img');
+          img.src = costume.imageUrl;
+          img.alt = costume.name;
+
+          const name = document.createElement('h2');
+          name.textContent = costume.name;
+
+          const price = document.createElement('p');
+          price.textContent = `Цена: ${costume.price} руб.`;
+
+          const description = document.createElement('p');
+          description.textContent = costume.description;
+          description.classList.add('description');
+
+          // Добавляем обработчик события клика для раскрытия/закрытия описания
+          [name, price].forEach(element => {
+            element.addEventListener('click', (event) => {
+              event.stopPropagation(); // Предотвращаем всплытие события до родительского элемента
+              // Закрываем открытое описание, если оно не соответствует текущей карточке
+              if (openedCardIndex !== index && openedCardIndex !== -1) {
+                const openedDescription = container.children[openedCardIndex].querySelector('.description');
+                openedDescription.classList.remove('open'); // Удаляем класс, чтобы скрыть описание с анимацией
+              }
+              // Переключаем состояние отображения описания текущей карточки
+              description.classList.toggle('open');
+              // Обновляем индекс открытой карточки
+              openedCardIndex = openedCardIndex === index ? -1 : index;
+            });
+          });
+
+          card.appendChild(img);
+          card.appendChild(name);
+          card.appendChild(price);
+          card.appendChild(description);
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error fetching costumes:', error);
+      }
+    }
+
+    fetchCostumes();
+  </script>
+</body>
+</html>
