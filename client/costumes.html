@@ -38,7 +38,7 @@
       width: 200px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
-      cursor: pointer; /* Добавляем стиль указателя для карточки */
+      cursor: pointer; 
     }
 
     .costume-card img {
@@ -47,9 +47,9 @@
     }
 
     .description {
-      overflow: hidden; /* Скрытие контента, который выходит за пределы блока */
-      transition: max-height 0.3s ease; /* Анимация изменения максимальной высоты */
-      max-height: 0 !important; /* Начальная максимальная высота 0 */
+      overflow: hidden; 
+      transition: max-height 0.3s ease;
+      max-height: 0 !important; 
     }
 
     .description.open {
@@ -59,10 +59,11 @@
 </head>
 <body>
   <header>
+    <a href="index.html">Конструктор костюмов</a>
     <h1>Готовые костюмы в наличии</h1>
   </header>
   <main id="costume-container">
-    <!-- Карточки костюмов будут добавлены здесь через JavaScript -->
+
   </main>
   <script>
     async function fetchCostumes() {
@@ -70,7 +71,7 @@
         const response = await fetch('http://localhost:5500/costumes');
         const costumes = await response.json();
 
-        // Фильтрация дубликатов по имени костюма
+
         const uniqueCostumes = [];
         const names = new Set();
 
@@ -83,7 +84,7 @@
 
         const container = document.getElementById('costume-container');
 
-        // Переменная для отслеживания индекса открытой карточки
+
         let openedCardIndex = -1;
 
         uniqueCostumes.forEach((costume, index) => {
@@ -104,18 +105,18 @@
           description.textContent = costume.description;
           description.classList.add('description');
 
-          // Добавляем обработчик события клика для раскрытия/закрытия описания
+
           [name, price].forEach(element => {
             element.addEventListener('click', (event) => {
-              event.stopPropagation(); // Предотвращаем всплытие события до родительского элемента
-              // Закрываем открытое описание, если оно не соответствует текущей карточке
+              event.stopPropagation();
+           
               if (openedCardIndex !== index && openedCardIndex !== -1) {
                 const openedDescription = container.children[openedCardIndex].querySelector('.description');
-                openedDescription.classList.remove('open'); // Удаляем класс, чтобы скрыть описание с анимацией
+                openedDescription.classList.remove('open');
               }
-              // Переключаем состояние отображения описания текущей карточки
+             
               description.classList.toggle('open');
-              // Обновляем индекс открытой карточки
+           
               openedCardIndex = openedCardIndex === index ? -1 : index;
             });
           });
