@@ -22,7 +22,7 @@
       </div>
       <h1><a href="index.html" class="logo">Конструктор костюмов</a></h1>
       <div class="header-div">
-        <button class="save">Сохранить</button>
+        <button class="save">Оформить оплату</button>
         <div class="audio-player">
           <audio loop id="audio" preload="auto">
               <source src="./audio/Chill-Lofi.mp3" type="audio/mpeg" />
@@ -81,11 +81,36 @@
           <input type="color" id="color" name="color" value="#ffffff" />
         </div>
       </div>
-      <div class="options-panel-radio">
-        <input type="radio" id="wardrobe" name="options" value="wardrobe" style="display: none" />
-        <label for="wardrobe" class="wardrobe-btn">Гардероб</label>
-        <input type="radio" id="catalog" name="options" value="catalog" style="display: none" />
-        <label for="catalog" class="catalog-btn">Каталог</label>
+
+      <div class="check-box-div">
+          <div>
+            <input type="checkbox" id="mirrorBaseCheckbox">
+            <label for="mirrorBaseCheckbox">Необходимо ли зерскальная основа?</label>
+          </div>
+          <div>
+            <input type="checkbox" id="cutCheckbox">
+            <label for="cutCheckbox">Какой будет крой?</label>
+          </div>
+          <div>
+            <label for="mirrorShape">Форма зеркал:</label>
+            <select id="mirrorShape">
+                <option value="oval">Овальная</option>
+                <option value="square">Квадратная</option>
+                <option value="round">Круглая</option>
+            </select>
+          </div>
+          <div>
+            <input type="checkbox" id="fancyEffectCheckbox">
+            <label for="fancyEffectCheckbox">Добавить в костюм эффектности?</label>
+          </div>
+          <div>
+            <input type="checkbox" id="ledCheckbox">
+            <label for="ledCheckbox">Добавить диоды?</label>
+          </div>
+          <div>
+            <input type="checkbox" id="kineticCheckbox">
+            <label for="kineticCheckbox">Добавить кинетику?</label>
+          </div>      
       </div>
     </div>
 
@@ -98,55 +123,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script>
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 150;
-      var width = window.innerWidth * 0.8;
-      var height = window.innerHeight * 0.8;
-      var renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setSize(width, height);
-      renderer.setClearColor(0x000000, 0);
-      document.getElementById("main-container").appendChild(renderer.domElement);
-
-      var light = new THREE.DirectionalLight(0xffffff);
-      light.position.set(1, 1, 1).normalize();
-      scene.add(light);
-
-      var ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-      scene.add(ambientLight);
-
-      var loader = new THREE.OBJLoader();
-      loader.load(
-        "./telokar.obj",
-        function (obj) {
-          var geometry = obj.children[0].geometry;
-
-          var box = new THREE.Box3().setFromBufferAttribute(geometry.attributes.position);
-          var center = box.getCenter(new THREE.Vector3());
-
-          obj.position.sub(center);
-
-          scene.add(obj);
-        },
-        function (xhr) {},
-        function (error) {
-          console.error("Произошла ошибка при загрузке модели", error);
-        }
-      );
-
-      var controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableZoom = false;
-      controls.update();
-
-      function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      }
-      animate();
-    </script>
-
     <script src="./script.js"></script>
   </body>
 </html>
