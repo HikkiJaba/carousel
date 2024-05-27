@@ -411,5 +411,5 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       modal.style.display = "none"; // Скрываем модальное окно
     }
   });
-  
+
   
