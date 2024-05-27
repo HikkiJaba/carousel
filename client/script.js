@@ -390,29 +390,35 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
     var costumeColor = document.getElementById("costumeColor").value;
     var skirtColor = document.getElementById("skirtColor").value;
   
-    // Добавляем цвета в FormData
-    formData.append("costumeColor", costumeColor);
-    formData.append("skirtColor", skirtColor);
-  
+    // Получаем значения чекбоксов
     var mirrorBaseCheckbox = document.getElementById("mirrorBaseCheckbox").checked;
-    var mirrorShape = document.getElementById("mirrorShape").value;
-    var mirrorShape2 = document.getElementById("mirrorShape2").value;
-    var mirrorShape3 = document.getElementById("mirrorShape3").value;
     var fancyEffectCheckbox = document.getElementById("fancyEffectCheckbox").checked;
     var ledCheckbox = document.getElementById("ledCheckbox").checked;
     var kineticCheckbox = document.getElementById("kineticCheckbox").checked;
   
-    formData.append("mirrorBaseCheckbox", mirrorBaseCheckbox);
-    formData.append("mirrorShape", mirrorShape);
-    formData.append("mirrorShape2", mirrorShape2);
-    formData.append("mirrorShape3", mirrorShape3);
-    formData.append("fancyEffectCheckbox", fancyEffectCheckbox);
-    formData.append("ledCheckbox", ledCheckbox);
-    formData.append("kineticCheckbox", kineticCheckbox);
+    // Создаем объект с данными
+    var data = {
+      fullName: formData.get('fullName'),
+      address: formData.get('address'),
+      phoneNumber: formData.get('phoneNumber'),
+      costumeColor: costumeColor,
+      skirtColor: skirtColor,
+      mirrorBaseCheckbox: mirrorBaseCheckbox,
+      mirrorShape: formData.get('mirrorShape'),
+      mirrorShape2: formData.get('mirrorShape2'),
+      mirrorShape3: formData.get('mirrorShape3'),
+      fancyEffectCheckbox: fancyEffectCheckbox,
+      ledCheckbox: ledCheckbox,
+      kineticCheckbox: kineticCheckbox
+    };
   
+    // Отправляем данные на сервер в виде JSON
     fetch('http://localhost:5550/formdata', {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     })
     .then(response => {
       if (response.ok) {
@@ -425,6 +431,7 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       console.error("Ошибка при отправке данных:", error);
     });
 });
+
 
   document.getElementById("openModalBtn").addEventListener("click", function() {
     var modal = document.getElementById("myModal");
