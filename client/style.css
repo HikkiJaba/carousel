@@ -199,9 +199,11 @@ aside img {
 
 
 .options-panel {
+    overflow-y: auto;
+    overflow-x: auto;
     display: flex;
     position: fixed;
-    height: 520px;
+    height: 450px;
     width: 400px;
     top: 98px;
     left: 140px;
@@ -209,6 +211,13 @@ aside img {
     background-color: #ffffff;
     border-left: 1px solid #ccc;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.costume-div {
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+    justify-content: start;
 }
 
 .options-panel div {
@@ -341,6 +350,179 @@ label {
     display: flex;
     flex-direction: column;
 }
+.check-box-div {
+    font-family: Arial, sans-serif;
+}
+
+.check-box-div label {
+    margin-left: 8px;
+}
+
+.check-box-div div {
+    margin-bottom: 10px;
+}
+
+
+#mirrorShape-div, #skirtOptions {
+    display: none;
+}
+
+
+.check-box-div select {
+    padding: 5px;
+    margin-left: 10px;
+}
+
+
+.check-box-div input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+input[type="checkbox"]:checked + label + #mirrorShape-div {
+    display: block;
+}
+
+input[type="checkbox"]:checked + label + #skirtOptions {
+    display: block;
+}
+
+
+#cutOptions {
+    margin-top: 10px;
+}
+
+
+.check-box-div div label {
+    font-weight: bold;
+}
+
+.check-box-div select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.check-box-div {
+    font-family: Arial, sans-serif;
+}
+
+.check-box-div label {
+    margin-left: 8px;
+}
+
+.check-box-div div {
+    margin-bottom: 10px;
+}
+
+#mirrorShape-div, #skirtOptions {
+    display: none;
+    margin-top: 20px;
+}
+
+.mirror-option {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #888;
+    cursor: pointer;
+}
+
+.mirror-options {
+    display: flex;
+    margin: 15px auto;
+    justify-content: center;
+    overflow-x: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    width: 250px;
+    padding: 0 50px;
+}
+
+/* Стили для опций выбора формы зеркал */
+.mirror-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.mirror-option {
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    padding: 5px;
+    transition: border-color 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+
+.mirror-option img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 5px;
+}
+
+.mirror-option:hover {
+    border-color: #a4d0ff;
+}
+
+.mirror-option.selected {
+    border-color: #bddcfd;
+    background-color: #a7d1ff; /* Цвет фона для выбранного элемента */
+}
+
+.mirror-option:hover {
+    background-color: #f0f0f0;
+}
+
+.mirror-option.selected {
+    background-color: #d0d0d0;
+}
+
+#mirrorShape {
+    display: none;
+}
+
+
+/* Modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 /*Registration*/
 
@@ -358,6 +540,7 @@ label {
     text-align: center;
     margin-bottom: 15px;
   }
+
   
   .registration-container h1 {
     text-align: center;

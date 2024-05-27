@@ -35,7 +35,6 @@
         <a href="registration.html" class="user-link"><i class="fas fa-user"></i></a>
       </div>
     </header>
-
     <aside>
       <button class="icon-btn" onclick="toggleOptionsPanel('size')">
         <img src="./img/icons/dress-icon.png" class="icon-img" />
@@ -66,53 +65,103 @@
       </button>
     </aside>
 
-    <div class="options-panel" id="options-size">
-      <div class="select">
-        <div class="size-options">
-          <label for="size">Размер:</label>
-          <select id="size">
-            <option value="s">S</option>
-            <option value="m">M</option>
-            <option value="l">L</option>
-          </select>
-        </div>
-        <div class="color-options">
-          <label for="color">Цвет:</label>
-          <input type="color" id="color" name="color" value="#ffffff" />
-        </div>
-      </div>
-
-      <div class="check-box-div">
-          <div>
-            <input type="checkbox" id="mirrorBaseCheckbox">
-            <label for="mirrorBaseCheckbox">Необходимо ли зерскальная основа?</label>
-          </div>
-          <div>
-            <input type="checkbox" id="cutCheckbox">
-            <label for="cutCheckbox">Какой будет крой?</label>
-          </div>
-          <div>
-            <label for="mirrorShape">Форма зеркал:</label>
-            <select id="mirrorShape">
-                <option value="oval">Овальная</option>
-                <option value="square">Квадратная</option>
-                <option value="round">Круглая</option>
-            </select>
-          </div>
-          <div>
-            <input type="checkbox" id="fancyEffectCheckbox">
-            <label for="fancyEffectCheckbox">Добавить в костюм эффектности?</label>
-          </div>
-          <div>
-            <input type="checkbox" id="ledCheckbox">
-            <label for="ledCheckbox">Добавить диоды?</label>
-          </div>
-          <div>
-            <input type="checkbox" id="kineticCheckbox">
-            <label for="kineticCheckbox">Добавить кинетику?</label>
-          </div>      
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Информация для заказа</h2>
+        <form id="userInfoForm">
+          <label for="fullName">ФИО:</label>
+          <input type="text" id="fullName" name="fullName">
+          <label for="address">Адресс:</label>
+          <input type="text" id="address" name="address">
+          <label for="phoneNumber">Номер телефона:</label>
+          <input type="text" id="phoneNumber" name="phoneNumber">
+          <button type="submit">Заказ</button>
+        </form>
       </div>
     </div>
+
+
+    <div class="options-panel" id="options-size">
+      <div>
+        <input type="checkbox" id="mirrorBaseCheckbox">
+        <label for="mirrorBaseCheckbox">Необходимо ли зеркальная основа?</label>
+      </div>
+      <div id="mirrorShape-div" style="display: none;">
+        <label for="mirrorShape">Форма зеркал:</label>
+        <div class="mirror-options">
+            <div class="mirror-option" data-value="broken">
+                <img src="./img/шаг 4, форма зеркала/битое зеркало.jpg" alt="Битое зеркало"> Битое зеркало
+            </div>
+            <div class="mirror-option" data-value="gaga">
+                <img src="./img/шаг 4, форма зеркала/гага.jpg" alt="Гага"> Гага
+            </div>
+            <div class="mirror-option" data-value="snake">
+                <img src="./img/шаг 4, форма зеркала/змея.jpg" alt="Змея"> Змея
+            </div>
+            <div class="mirror-option" data-value="circle">
+                <img src="./img/шаг 4, форма зеркала/круг.jpg" alt="Круг"> Круг
+            </div>
+            <div class="mirror-option" data-value="leaves">
+                <img src="./img/шаг 4, форма зеркала/чешуя.jpg" alt="Чащея"> Чащея
+            </div>
+            <div class="mirror-option" data-value="hexagon">
+                <img src="./img/шаг 4, форма зеркала/шестиугольник.jpg" alt="Шестиугольник"> Шестиугольник
+            </div>
+        </div>
+        <input type="hidden" id="mirrorShape">
+    </div>
+    <div id="cutOptions">
+      <label for="mirrorShape2">Тип кроя:</label>
+      <div class="mirror-options">
+          <div class="mirror-option" data-value="woman-cost">
+              <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы обтягивающие.jpg"> Женский обтягивающий костюм </img>
+          </div>
+          <div class="mirror-option" data-value="woman-cost-fat">
+              <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы объёмные.jpg"> Объёмный женский крой </img>
+          </div>
+          <div class="mirror-option" data-value="men-cost">
+              <img src="./img/шаг з, выбираем крой/мужские зеркальные костюмы.jpg"> Мужской костюм </img>
+          </div>
+      </div>
+      <input type="hidden" id="mirrorShape2">
+  </div>
+  
+  <div id="cutOptions">
+    <label for="mirrorShape3">Юбка:</label>
+    <div class="mirror-options">
+        <div class="mirror-option" data-value="carusel">
+            <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
+        </div>
+        <div class="mirror-option" data-value="balerin">
+            <img src="./img/шаг 5, добавить юбку/классическая юбка балерины.jpg"> Юбка балерины </img>
+        </div>
+        <div class="mirror-option" data-value="balerin-modern">
+            <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
+        </div>
+    </div>
+    <input type="hidden" id="mirrorShape3">
+</div>
+
+  <div class="costume-div">
+    <div>
+      <input type="checkbox" id="fancyEffectCheckbox">
+      <label for="fancyEffectCheckbox">Добавить в костюм эффектности?</label>
+    </div>
+    <div>
+      <input type="checkbox" id="ledCheckbox">
+      <label for="ledCheckbox">Добавить диоды?</label>
+    </div>
+    <div>
+      <input type="checkbox" id="kineticCheckbox">
+      <label for="kineticCheckbox">Добавить кинетику?</label>
+    </div> 
+    <div class="options-panel1" id="options-size">
+      <!-- Existing content -->
+      <button id="openModalBtn">Заказать</button>
+    </div>
+    </div>
+  </div>
 
     <main id="main-container">
       <div>
@@ -124,5 +173,24 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="./script.js"></script>
+    <script>
+      document.getElementById('mirrorBaseCheckbox').addEventListener('change', function() {
+          var mirrorShape = document.getElementById('mirrorShape-div');
+          if (this.checked) {
+            mirrorShape.style.display = 'block';
+          } else {
+            mirrorShape.style.display = 'none';
+          }
+      });
+
+      document.getElementById('skirtCheckbox').addEventListener('change', function() {
+        var skirtOptions = document.getElementById('skirtOptions');
+        if (this.checked) {
+            skirtOptions.style.display = 'block';
+        } else {
+            skirtOptions.style.display = 'none';
+        }
+      });
+      </script>
   </body>
 </html>

@@ -311,3 +311,105 @@ setTimeout(() => {
 }, 100);
 
 animate();
+document.addEventListener('DOMContentLoaded', function() {
+    var mirrorBaseCheckbox = document.getElementById('mirrorBaseCheckbox');
+    var mirrorShapeDiv = document.getElementById('mirrorShape-div');
+    var mirrorOptions = mirrorShapeDiv ? mirrorShapeDiv.querySelectorAll('.mirror-option') : [];
+    var mirrorShapeInput = document.getElementById('mirrorShape');
+
+    mirrorBaseCheckbox.addEventListener('change', function() {
+        if (mirrorShapeDiv) {
+            mirrorShapeDiv.style.display = mirrorBaseCheckbox.checked ? 'block' : 'none';
+        }
+    });
+
+    mirrorOptions.forEach(function(option) {
+        option.addEventListener('click', function() {
+            mirrorOptions.forEach(function(opt) {
+                opt.classList.remove('selected');
+                opt.style.backgroundColor = 'transparent';
+            });
+            option.classList.add('selected');
+            mirrorShapeInput.value = option.getAttribute('data-value');
+        });
+    });
+
+    var cutOptions = document.querySelectorAll('[id^="cutOptions"]');
+
+    cutOptions.forEach(function(cutOption) {
+        var options = cutOption.querySelectorAll('.mirror-option');
+        var input = cutOption.querySelector('input[type="hidden"]');
+        options.forEach(function(option) {
+            option.addEventListener('click', function() {
+                options.forEach(function(opt) {
+                    opt.classList.remove('selected');
+                    opt.style.backgroundColor = 'transparent';
+                });
+                option.classList.add('selected');
+                input.value = option.getAttribute('data-value');
+            });
+        });
+    });
+});
+
+document.getElementById("userInfoForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+    
+    // Получаем данные из формы
+    var formData = new FormData(this);
+    
+    // Получаем данные из панели опций
+    var mirrorBaseCheckbox = document.getElementById("mirrorBaseCheckbox").checked;
+    var mirrorShape = document.getElementById("mirrorShape").value;
+    var mirrorShape2 = document.getElementById("mirrorShape2").value;;
+    var mirrorShape3 = document.getElementById("mirrorShape3").value;;
+    var fancyEffectCheckbox = document.getElementById("fancyEffectCheckbox").checked;
+    var ledCheckbox = document.getElementById("ledCheckbox").checked;
+    var kineticCheckbox = document.getElementById("kineticCheckbox").checked;
+    
+    // Добавляем данные из панели опций в FormData
+    formData.append("mirrorBaseCheckbox", mirrorBaseCheckbox);
+    formData.append("mirrorShape", mirrorShape);
+    formData.append("mirrorShape2", mirrorShape2);
+    formData.append("mirrorShape3", mirrorShape3);
+    formData.append("fancyEffectCheckbox", fancyEffectCheckbox);
+    formData.append("ledCheckbox", ledCheckbox);
+    formData.append("kineticCheckbox", kineticCheckbox);
+    
+    // Выполняем AJAX-запрос для отправки данных на бэкенд
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "your-backend-url", true); // Замените "your-backend-url" на URL вашего бэкенда
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          // Данные успешно отправлены
+          console.log("Данные успешно отправлены");
+        } else {
+          // Произошла ошибка при отправке данных
+          console.error("Ошибка при отправке данных");
+        }
+      }
+    };
+    xhr.send(formData); // Отправляем данные на бэкенд
+  });
+
+  document.getElementById("openModalBtn").addEventListener("click", function() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block"; // Показываем модальное окно
+  });
+  
+  // Закрываем модальное окно при клике на крестик
+  document.getElementsByClassName("close")[0].addEventListener("click", function() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none"; // Скрываем модальное окно
+  });
+  
+  // Закрываем модальное окно при клике за его пределами
+  window.addEventListener("click", function(event) {
+    var modal = document.getElementById("myModal");
+    if (event.target == modal) {
+      modal.style.display = "none"; // Скрываем модальное окно
+    }
+  });
+  
+  
