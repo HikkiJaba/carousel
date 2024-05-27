@@ -410,14 +410,13 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
     formData.append("ledCheckbox", ledCheckbox);
     formData.append("kineticCheckbox", kineticCheckbox);
   
-    fetch('http://localhost:5500/formdata', {
+    fetch('http://localhost:5550/formdata', {
       method: 'POST',
       body: formData
     })
     .then(response => {
       if (response.ok) {
         console.log("Данные успешно отправлены");
-        window.location.href = "index.html";
       } else {
         console.error("Ошибка при отправке данных");
       }

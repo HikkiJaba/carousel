@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = 5500;
+const port = 5550;
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -102,13 +102,59 @@ app.listen(port, () => {
 });
 
 
+const nodemailer = require('nodemailer');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const transporter = nodemailer.createTransport({
+  service: 'yandex',
+  auth: {
+    user: '_', /*почтовый ящик, который будет отправлять письмо менеджеру (Тестил на яндексе)*/
+    pass: '_'
+  }
+});
 
 app.post('/formdata', async (req, res) => {
   try {
-    const { costumeColor, skirtColor, mirrorBaseCheckbox, mirrorShape, mirrorShape2, mirrorShape3, fancyEffectCheckbox, ledCheckbox, kineticCheckbox } = req.body;
-    res.status(200).send('Данные успешно получены на сервере');
+    const { fullName, address, phoneNumber, costumeColor, skirtColor, mirrorBaseCheckbox, mirrorShape, mirrorShape2, mirrorShape3, fancyEffectCheckbox, ledCheckbox, kineticCheckbox } = req.body;
+
+    const mirrorBase = mirrorBaseCheckbox === 'true' ? 'Да' : 'Нет';
+    const fancyEffect = fancyEffectCheckbox === 'true' ? 'Да' : 'Нет';
+    const led = ledCheckbox === 'true' ? 'Да' : 'Нет';
+    const kinetic = kineticCheckbox === 'true' ? 'Да' : 'Нет';
+
+    // Формируем текст письма
+    const mailText = `
+      ФИО: ${fullName}
+      Адрес: ${address}
+      Номер телефона: ${phoneNumber}
+      Цвет костюма: ${costumeColor}
+      Цвет юбки: ${skirtColor}
+      Необходимо ли зеркальная основа: ${mirrorBase}
+      Форма зеркал: ${mirrorShape}
+      Тип кроя: ${mirrorShape2}
+      Юбка: ${mirrorShape3}
+      Добавить в костюм эффектности: ${fancyEffect}
+      Добавить диоды: ${led}
+      Добавить кинетику: ${kinetic}
+    `;
+
+    // Отправляем письмо
+    await transporter.sendMail({
+      from: '_',
+      to: '_',
+      subject: 'Заказ костюма',
+      text: mailText
+    });
+
+    res.status(200).send('Данные успешно отправлены письмом');
   } catch (error) {
-    console.error('Ошибка при обработке данных:', error);
-    res.status(500).send('Произошла ошибка при обработке данных');
+    console.error('Ошибка при отправке письма:', error);
+    res.status(500).send('Произошла ошибка при отправке данных письмом');
   }
 });
+
+app.listen(5500, () => {
+  console.log('Server is running on port 5500');
+});
+
