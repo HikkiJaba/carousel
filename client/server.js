@@ -100,3 +100,15 @@ app.post('/costumes', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+
+app.post('/formdata', async (req, res) => {
+  try {
+    const { costumeColor, skirtColor, mirrorBaseCheckbox, mirrorShape, mirrorShape2, mirrorShape3, fancyEffectCheckbox, ledCheckbox, kineticCheckbox } = req.body;
+    res.status(200).send('Данные успешно получены на сервере');
+  } catch (error) {
+    console.error('Ошибка при обработке данных:', error);
+    res.status(500).send('Произошла ошибка при обработке данных');
+  }
+});

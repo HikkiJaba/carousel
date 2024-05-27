@@ -112,6 +112,40 @@ function loadAdditionalModel(path, scaleFactor) {
 }
 
 
+var costumeColorInput = document.getElementById('costumeColor');
+var skirtColorInput = document.getElementById('skirtColor');
+
+costumeColorInput.addEventListener('input', function() {
+    updateModelColors();
+    updateModelBasedOnCheckboxes();
+});
+
+skirtColorInput.addEventListener('input', function() {
+    updateModelColors();
+    updateModelBasedOnCheckboxes();
+});
+
+function updateModelColors() {
+    var costumeColor = new THREE.Color(costumeColorInput.value);
+    var skirtColor = new THREE.Color(skirtColorInput.value);
+
+    var currentModelMaterial = currentModel.material;
+    if (currentModelMaterial) {
+        currentModelMaterial.color.copy(costumeColor);
+    }
+
+    var additionalModel = scene.getObjectByName('additionalModel');
+    if (additionalModel) {
+        var additionalModelMaterial = additionalModel.material;
+        if (additionalModelMaterial) {
+            additionalModelMaterial.color.copy(skirtColor);
+        }
+    }
+}
+
+
+
+
 
 
 function updateModelBasedOnCheckboxes() {
@@ -157,12 +191,6 @@ function anime() {
         additionalModel.rotation.y -= 0.01;
     }
 }
-
-
-
-
-
-
 
 
 
@@ -353,21 +381,27 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById("userInfoForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-    
+    event.preventDefault();
+  
     // Получаем данные из формы
     var formData = new FormData(this);
-    
-    // Получаем данные из панели опций
+  
+    // Получаем цвета костюма и юбки
+    var costumeColor = document.getElementById("costumeColor").value;
+    var skirtColor = document.getElementById("skirtColor").value;
+  
+    // Добавляем цвета в FormData
+    formData.append("costumeColor", costumeColor);
+    formData.append("skirtColor", skirtColor);
+  
     var mirrorBaseCheckbox = document.getElementById("mirrorBaseCheckbox").checked;
     var mirrorShape = document.getElementById("mirrorShape").value;
-    var mirrorShape2 = document.getElementById("mirrorShape2").value;;
-    var mirrorShape3 = document.getElementById("mirrorShape3").value;;
+    var mirrorShape2 = document.getElementById("mirrorShape2").value;
+    var mirrorShape3 = document.getElementById("mirrorShape3").value;
     var fancyEffectCheckbox = document.getElementById("fancyEffectCheckbox").checked;
     var ledCheckbox = document.getElementById("ledCheckbox").checked;
     var kineticCheckbox = document.getElementById("kineticCheckbox").checked;
-    
-    // Добавляем данные из панели опций в FormData
+  
     formData.append("mirrorBaseCheckbox", mirrorBaseCheckbox);
     formData.append("mirrorShape", mirrorShape);
     formData.append("mirrorShape2", mirrorShape2);
@@ -375,41 +409,40 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
     formData.append("fancyEffectCheckbox", fancyEffectCheckbox);
     formData.append("ledCheckbox", ledCheckbox);
     formData.append("kineticCheckbox", kineticCheckbox);
-    
-    // Выполняем AJAX-запрос для отправки данных на бэкенд
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "your-backend-url", true); // Замените "your-backend-url" на URL вашего бэкенда
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Данные успешно отправлены
-          console.log("Данные успешно отправлены");
-        } else {
-          // Произошла ошибка при отправке данных
-          console.error("Ошибка при отправке данных");
-        }
+  
+    fetch('http://localhost:5500/formdata', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Данные успешно отправлены");
+        window.location.href = "index.html";
+      } else {
+        console.error("Ошибка при отправке данных");
       }
-    };
-    xhr.send(formData); // Отправляем данные на бэкенд
-  });
+    })
+    .catch(error => {
+      console.error("Ошибка при отправке данных:", error);
+    });
+});
 
   document.getElementById("openModalBtn").addEventListener("click", function() {
     var modal = document.getElementById("myModal");
-    modal.style.display = "block"; // Показываем модальное окно
+    modal.style.display = "block"; 
   });
   
-  // Закрываем модальное окно при клике на крестик
+ 
   document.getElementsByClassName("close")[0].addEventListener("click", function() {
     var modal = document.getElementById("myModal");
-    modal.style.display = "none"; // Скрываем модальное окно
+    modal.style.display = "none";
   });
   
-  // Закрываем модальное окно при клике за его пределами
+ 
   window.addEventListener("click", function(event) {
     var modal = document.getElementById("myModal");
     if (event.target == modal) {
-      modal.style.display = "none"; // Скрываем модальное окно
+      modal.style.display = "none"; 
     }
   });
-
   

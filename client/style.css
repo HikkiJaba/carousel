@@ -767,7 +767,7 @@ input[type="checkbox"]:checked + label + #skirtOptions {
         height: 170px;
         padding: 35px 5px;
         background-color: #ffffff;
-        border-left: 1px solid #ccc;
+        border-left: 1px solid #939191;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     }
 
