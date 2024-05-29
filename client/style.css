@@ -49,6 +49,19 @@ header {
     align-items: center;
 }
 
+.step {
+    display: none !important;
+}
+.step.active {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.step .premuim {
+    margin-top: 25%;
+}
+
+
 .premuim {
     color: #6B7276;
     padding: 5px 20px;
@@ -224,6 +237,10 @@ aside img {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.options-panel label {
+    font-size: 18px;
 }
 
 .select {
@@ -432,7 +449,8 @@ input[type="checkbox"]:checked + label + #skirtOptions {
 .mirror-options {
     display: flex;
     margin: 15px auto;
-    justify-content: center;
+    justify-content: start !important;
+    align-items: start;
     overflow-x: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;

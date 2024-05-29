@@ -21,13 +21,6 @@ controls.update();
 var rotationGroup = new THREE.Group();
 scene.add(rotationGroup); 
 
-function rotateModelAroundCenter(model) {
-    var boundingBox = new THREE.Box3().setFromObject(model);
-    var center = new THREE.Vector3();
-    boundingBox.getCenter(center);
-    model.position.copy(center.negate()); 
-}
-
 var currentModel;
 
 function loadModel(path, scaleFactor) {
@@ -76,19 +69,11 @@ kineticCheckbox.addEventListener('change', function () {
     updateModelBasedOnCheckboxes();
 });
 
-
-
-
-function loadAdditionalModel(path, scaleFactor) {
-    console.log("Loading additional model from path:", path);
-
+function loadAdditionalModel(path, scaleFactor, callback) {
     var loader = new THREE.OBJLoader();
     loader.load(
         path,
         function(obj) {
-            console.log("Model loaded successfully");
-            var geometry = obj.children[0].geometry;
-
             var box = new THREE.Box3().setFromObject(obj);
             var size = new THREE.Vector3();
             box.getSize(size);
@@ -102,15 +87,14 @@ function loadAdditionalModel(path, scaleFactor) {
             obj.userData.isAdditionalModel = true;
             obj.name = 'additionalModel';
 
-            scene.add(obj);
+            callback(obj);
         },
-        function(xhr) {
-        },
+        function(xhr) {},
         function(error) {
+            console.error("Error loading additional model:", error);
         }
     );
 }
-
 
 var costumeColorInput = document.getElementById('costumeColor');
 var skirtColorInput = document.getElementById('skirtColor');
@@ -143,16 +127,12 @@ function updateModelColors() {
     }
 }
 
-
-
-
-
-
 function updateModelBasedOnCheckboxes() {
     var additionalModel = scene.getObjectByName('additionalModel');
     var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
     var ledCheckbox = document.getElementById('ledCheckbox');
     var kineticCheckbox = document.getElementById('kineticCheckbox');
+
     while (rotationGroup.children.length > 0) {
         var child = rotationGroup.children[0];
         rotationGroup.remove(child);
@@ -161,38 +141,43 @@ function updateModelBasedOnCheckboxes() {
     
     console.log("Checking checkboxes:", fancyEffectCheckbox.checked, ledCheckbox.checked, kineticCheckbox.checked);
 
-        if (fancyEffectCheckbox.checked && ledCheckbox.checked) {
-            if (additionalModel) {
-                rotationGroup.remove(additionalModel);
-                scene.remove(additionalModel);
-            }
-            loadAdditionalModel('./obj/lightkar.obj', 0.5);
-            if (kineticCheckbox.checked) {
-                anime(additionalModel);
-            }
-        } else if (fancyEffectCheckbox.checked) {
-            if (additionalModel) {
-                rotationGroup.remove(additionalModel);
-                scene.remove(additionalModel);
-            }
-            loadAdditionalModel('./obj/kar.obj', 0.5);
-        } else  {
-            if (additionalModel) {
-                rotationGroup.remove(additionalModel);
-                scene.remove(additionalModel);
-            }
+    if (fancyEffectCheckbox.checked && ledCheckbox.checked) {
+        if (additionalModel) {
+            rotationGroup.remove(additionalModel);
+            scene.remove(additionalModel);
         }
+        loadAdditionalModel('./obj/lightkar.obj', 0.5, function(obj) {
+            rotationGroup.add(obj);
+            scene.add(rotationGroup);
+            if (kineticCheckbox.checked) {
+                anime();
+            }
+        });
+    } else if (fancyEffectCheckbox.checked) {
+        if (additionalModel) {
+            rotationGroup.remove(additionalModel);
+            scene.remove(additionalModel);
+        }
+        loadAdditionalModel('./obj/kar.obj', 0.5, function(obj) {
+            rotationGroup.add(obj);
+            scene.add(rotationGroup);
+        });
+    } else  {
+        if (additionalModel) {
+            rotationGroup.remove(additionalModel);
+            scene.remove(additionalModel);
+        }
+    }
 }
 
 function anime() {
     var kineticCheckbox = document.getElementById('kineticCheckbox');
     var additionalModel = scene.getObjectByName('additionalModel');
     if (kineticCheckbox.checked && additionalModel) {
-        additionalModel.rotation.y -= 0.01;
+        additionalModel.rotation.y -= 0.00001;
+        requestAnimationFrame(anime);
     }
 }
-
-
 
 
 loadModel("./obj/telokar.obj", 0.8);
@@ -276,7 +261,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.name === 'mirrorBase') {
+                const mirrorShapeDiv = document.getElementById('mirrorShape-div');
+                mirrorShapeDiv.style.display = this.value === 'yes' ? 'block' : 'none';
+            } else if (this.name === 'skirt') {
+                const skirtOptions = document.getElementById('skirtOptions');
+                skirtOptions.style.display = this.checked ? 'block' : 'none';
+            }
+        });
+    });
 });
+
+function submitForm() {
+    document.getElementById('userInfoForm').submit();
+}
 
 function toggleOptionsPanel(panelId) {
     var panel = document.getElementById('options-' + panelId);

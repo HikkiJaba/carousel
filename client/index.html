@@ -82,7 +82,8 @@
     </div>
 
 
-    <div class="options-panel" id="options-size">
+    <div class="options-panel">
+      <div id="step1" class="step active mirror-options-div">
       <div>
         <input type="checkbox" id="mirrorBaseCheckbox">
         <label for="mirrorBaseCheckbox">Необходимо ли зеркальная основа?</label>
@@ -111,58 +112,91 @@
         </div>
         <input type="hidden" id="mirrorShape">
     </div>
+    <div class="button-container">
+      <button class="premuim" onclick="nextStep()">Далее</button>
+    </div>
+  </div>
+    <div id="step2" class="step mirror-options-div">
+      <div id="cutOptions">
+        <label for="mirrorShape2">Тип кроя:</label>
+        <div class="mirror-options">
+            <div class="mirror-option" data-value="woman-cost">
+                <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы обтягивающие.jpg"> Женский обтягивающий костюм </img>
+            </div>
+            <div class="mirror-option" data-value="woman-cost-fat">
+                <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы объёмные.jpg"> Объёмный женский крой </img>
+            </div>
+            <div class="mirror-option" data-value="men-cost">
+                <img src="./img/шаг з, выбираем крой/мужские зеркальные костюмы.jpg"> Мужской костюм </img>
+            </div>
+        </div>
+        <input type="hidden" id="mirrorShape2">
+    </div>
+    <div class="button-container">
+      <button class="premuim" onclick="nextStep()">Далее</button>
+    </div>
+  </div>
+  <div id="step3" class="step mirror-options-div">
     <div id="cutOptions">
-      <label for="mirrorShape2">Тип кроя:</label>
+      <label for="mirrorShape3">Юбка:</label>
       <div class="mirror-options">
-          <div class="mirror-option" data-value="woman-cost">
-              <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы обтягивающие.jpg"> Женский обтягивающий костюм </img>
+          <div class="mirror-option" data-value="carusel">
+              <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
           </div>
-          <div class="mirror-option" data-value="woman-cost-fat">
-              <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы объёмные.jpg"> Объёмный женский крой </img>
+          <div class="mirror-option" data-value="balerin">
+              <img src="./img/шаг 5, добавить юбку/классическая юбка балерины.jpg"> Юбка балерины </img>
           </div>
-          <div class="mirror-option" data-value="men-cost">
-              <img src="./img/шаг з, выбираем крой/мужские зеркальные костюмы.jpg"> Мужской костюм </img>
+          <div class="mirror-option" data-value="balerin-modern">
+              <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
           </div>
       </div>
-      <input type="hidden" id="mirrorShape2">
+      <input type="hidden" id="mirrorShape3">
+    </div>
+    <div class="button-container">
+      <button onclick="nextStep()" class="premuim">Далее</button>
+    </div>
   </div>
-  
-  <div id="cutOptions">
-    <label for="mirrorShape3">Юбка:</label>
-    <div class="mirror-options">
-        <div class="mirror-option" data-value="carusel">
-            <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
-        </div>
-        <div class="mirror-option" data-value="balerin">
-            <img src="./img/шаг 5, добавить юбку/классическая юбка балерины.jpg"> Юбка балерины </img>
-        </div>
-        <div class="mirror-option" data-value="balerin-modern">
-            <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
-        </div>
+  <div id="step4" class="step">
+    <div class="costume-div">
+      <div>
+        <input type="checkbox" id="fancyEffectCheckbox">
+        <label for="fancyEffectCheckbox">Добавить в костюм эффектности?</label>
+      </div>
     </div>
-    <input type="hidden" id="mirrorShape3">
-</div>
-
-  <div class="costume-div">
-    <div>
-      <input type="checkbox" id="fancyEffectCheckbox">
-      <label for="fancyEffectCheckbox">Добавить в костюм эффектности?</label>
+    <div class="button-container">
+      <button onclick="nextStep()" class="premuim">Далее</button>
     </div>
+  </div>
+  <div id="step5" class="step">
     <div>
       <input type="checkbox" id="ledCheckbox">
       <label for="ledCheckbox">Добавить диоды?</label>
     </div>
+    <div class="button-container">
+      <button class="premuim" onclick="nextStep()" class="premuim">Далее</button>
+    </div>
+  </div>
+  <div id="step6" class="step">
     <div>
       <input type="checkbox" id="kineticCheckbox">
       <label for="kineticCheckbox">Добавить кинетику?</label>
+    </div>
+    <div class="button-container">
+      <button onclick="nextStep()" class="premuim">Далее</button>
     </div> 
+  </div>
+  <div id="step7" class="step">
     <div id="cutOptions">
       <label for="mirrorShape2">Цвет костюма:</label>
       <input type="color" id="costumeColor" name="costumeColor" value="#939191">
       <input type="hidden" id="mirrorShape2">
   </div>
-  
-  <div id="cutOptions">
+  <div class="button-container">
+    <button onclick="nextStep()" class="premuim">Далее</button>
+  </div>
+  </div>
+  <div id="step8" class="step">
+    <div id="cutOptions">
       <label for="mirrorShape3">Цвет юбки:</label>
       <input type="color" id="skirtColor" name="skirtColor" value="#939191">
       <input type="hidden" id="mirrorShape3">
@@ -171,9 +205,8 @@
       <!-- Existing content -->
       <button id="openModalBtn" class="premuim">Заказать</button>
     </div>
-    </div>
   </div>
-
+</div>
     <main id="main-container">
       <div>
         <canvas id="canvas"></canvas>
@@ -185,6 +218,21 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="./script.js"></script>
     <script>
+    let currentStep = 1;
+
+    function nextStep() {
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep++;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+
+    function submitForm() {
+        alert("Заказ оформлен!");
+        // Add form submission logic here
+    }
+
+    // Initialize the first step
+    document.getElementById(`step${currentStep}`).classList.add('active');
       document.getElementById('mirrorBaseCheckbox').addEventListener('change', function() {
           var mirrorShape = document.getElementById('mirrorShape-div');
           if (this.checked) {
