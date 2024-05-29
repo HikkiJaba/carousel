@@ -410,6 +410,7 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
     var fancyEffectCheckbox = document.getElementById("fancyEffectCheckbox").checked;
     var ledCheckbox = document.getElementById("ledCheckbox").checked;
     var kineticCheckbox = document.getElementById("kineticCheckbox").checked;
+    var count = document.getElementById("count").textContent;
   
     // Создаем объект с данными
     var data = {
@@ -424,7 +425,8 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       mirrorShape3: formData.get('mirrorShape3'),
       fancyEffectCheckbox: fancyEffectCheckbox,
       ledCheckbox: ledCheckbox,
-      kineticCheckbox: kineticCheckbox
+      kineticCheckbox: kineticCheckbox,
+      count: count
     };
   
     // Отправляем данные на сервер в виде JSON

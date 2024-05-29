@@ -229,11 +229,39 @@
     <script>
     let currentStep = 1;
 
-    function nextStep() {
-        document.getElementById(`step${currentStep}`).classList.remove('active');
-        currentStep++;
-        document.getElementById(`step${currentStep}`).classList.add('active');
+function nextStep() {
+    document.getElementById(`step${currentStep}`).classList.remove('active');
+    currentStep++;
+    document.getElementById(`step${currentStep}`).classList.add('active');
+}
+
+// Add event listeners for the increase and decrease buttons
+document.getElementById("increase").addEventListener("click", function() {
+    increaseCount();
+});
+
+document.getElementById("decrease").addEventListener("click", function() {
+    decreaseCount();
+});
+
+// Function to increase the count
+function increaseCount() {
+    let countElement = document.getElementById("count");
+    let count = parseInt(countElement.textContent);
+    count++;
+    countElement.textContent = count;
+}
+
+// Function to decrease the count
+function decreaseCount() {
+    let countElement = document.getElementById("count");
+    let count = parseInt(countElement.textContent);
+    // Ensure count doesn't go below 1
+    if (count > 1) {
+        count--;
+        countElement.textContent = count;
     }
+}
 
     function submitForm() {
         alert("Заказ оформлен!");

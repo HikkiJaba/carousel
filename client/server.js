@@ -116,7 +116,7 @@ const transporter = nodemailer.createTransport({
 
 app.post('/formdata', async (req, res) => {
   try {
-    const { fullName, address, phoneNumber, costumeColor, skirtColor, mirrorBaseCheckbox, mirrorShape, mirrorShape2, mirrorShape3, fancyEffectCheckbox, ledCheckbox, kineticCheckbox } = req.body;
+    const { fullName, address, phoneNumber, costumeColor, skirtColor, mirrorBaseCheckbox, mirrorShape, mirrorShape2, mirrorShape3, fancyEffectCheckbox, ledCheckbox, kineticCheckbox, count } = req.body;
 
     const mirrorBase = mirrorBaseCheckbox === 'true' ? 'Да' : 'Нет';
     const fancyEffect = fancyEffectCheckbox === 'true' ? 'Да' : 'Нет';
@@ -137,6 +137,7 @@ app.post('/formdata', async (req, res) => {
       Добавить в костюм эффектности: ${fancyEffect}
       Добавить диоды: ${led}
       Добавить кинетику: ${kinetic}
+      Количество заказов: ${count}
     `;
     
     // Отправляем письмо
