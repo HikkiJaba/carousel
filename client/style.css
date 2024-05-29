@@ -474,6 +474,31 @@ input[type="checkbox"]:checked + label + #skirtOptions {
     transition: border-color 0.3s, background-color 0.3s;
     border-radius: 5px;
 }
+.counter-container {
+    margin-top: 10px;
+}
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.counter button {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+}
+.counter span {
+    margin: 0 10px;
+    font-size: 20px;
+}
+.counter .label {
+    margin-right: 5px;
+    font-size: 18px;
+    margin: auto 0;
+    font-weight: bold;
+}
+
+
 
 
 .mirror-option img {

@@ -357,17 +357,20 @@ setTimeout(() => {
 
 animate();
 document.addEventListener('DOMContentLoaded', function() {
+    // Получение элементов для первого шага
     var mirrorBaseCheckbox = document.getElementById('mirrorBaseCheckbox');
     var mirrorShapeDiv = document.getElementById('mirrorShape-div');
     var mirrorOptions = mirrorShapeDiv ? mirrorShapeDiv.querySelectorAll('.mirror-option') : [];
     var mirrorShapeInput = document.getElementById('mirrorShape');
 
+    // Показ/скрытие блока формы зеркала при изменении состояния чекбокса
     mirrorBaseCheckbox.addEventListener('change', function() {
         if (mirrorShapeDiv) {
             mirrorShapeDiv.style.display = mirrorBaseCheckbox.checked ? 'block' : 'none';
         }
     });
 
+    // Обработка выбора формы зеркала
     mirrorOptions.forEach(function(option) {
         option.addEventListener('click', function() {
             mirrorOptions.forEach(function(opt) {
@@ -379,11 +382,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Получение всех блоков с опциями кроя (включая шаги 2 и 3)
     var cutOptions = document.querySelectorAll('[id^="cutOptions"]');
 
     cutOptions.forEach(function(cutOption) {
         var options = cutOption.querySelectorAll('.mirror-option');
         var input = cutOption.querySelector('input[type="hidden"]');
+        
+        // Обработка выбора типа кроя или юбки
         options.forEach(function(option) {
             option.addEventListener('click', function() {
                 options.forEach(function(opt) {
@@ -396,6 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 document.getElementById("userInfoForm").addEventListener("submit", function(event) {
     event.preventDefault();

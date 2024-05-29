@@ -201,6 +201,14 @@
       <input type="color" id="skirtColor" name="skirtColor" value="#939191">
       <input type="hidden" id="mirrorShape3">
   </div>
+    <div class="counter-container">
+      <div class="label">Количество</div>
+      <div class="counter">
+          <button id="decrease">-</button>
+          <span id="count">1</span>
+          <button id="increase">+</button>
+      </div>
+    </div>
     <div class="options-panel1" id="options-size">
       <!-- Existing content -->
       <button id="openModalBtn" class="premuim">Заказать</button>
@@ -243,6 +251,8 @@
           }
       });
 
+      
+
       document.getElementById('skirtCheckbox').addEventListener('change', function() {
         var skirtOptions = document.getElementById('skirtOptions');
         if (this.checked) {
@@ -251,6 +261,25 @@
             skirtOptions.style.display = 'none';
         }
       });
+
+      document.addEventListener("DOMContentLoaded", function () {
+            let count = 1;
+            const countSpan = document.getElementById('count');
+            const increaseButton = document.getElementById('increase');
+            const decreaseButton = document.getElementById('decrease');
+
+            increaseButton.addEventListener('click', function () {
+                count++;
+                countSpan.textContent = count;
+            });
+
+            decreaseButton.addEventListener('click', function () {
+                if (count > 1) {
+                    count--;
+                    countSpan.textContent = count;
+                }
+            });
+        });
       </script>
   </body>
 </html>

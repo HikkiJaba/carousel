@@ -122,7 +122,7 @@ app.post('/formdata', async (req, res) => {
     const fancyEffect = fancyEffectCheckbox === 'true' ? 'Да' : 'Нет';
     const led = ledCheckbox === 'true' ? 'Да' : 'Нет';
     const kinetic = kineticCheckbox === 'true' ? 'Да' : 'Нет';
-
+    console.log(req.body);
     // Формируем текст письма
     const mailText = `
       ФИО: ${fullName}
@@ -138,7 +138,7 @@ app.post('/formdata', async (req, res) => {
       Добавить диоды: ${led}
       Добавить кинетику: ${kinetic}
     `;
-
+    
     // Отправляем письмо
     await transporter.sendMail({
       from: '_',
