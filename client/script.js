@@ -59,6 +59,12 @@ function loadModel(path, scaleFactor) {
 
 function loadAdditionalModel(path, scaleFactor, callback) {
     var loader = new THREE.OBJLoader();
+    var additionalModel = scene.getObjectByName('additionalModel');
+    if (additionalModel) {
+        rotationGroup.remove(additionalModel);
+        scene.remove(additionalModel);
+        console.log("Old additional model removed before loading new one");
+    }
     loader.load(
         path,
         function(obj) {
@@ -123,65 +129,50 @@ function updateModelColors() {
     var costumeColor = new THREE.Color(costumeColorInput.value);
     var skirtColor = new THREE.Color(skirtColorInput.value);
 
-    console.log("Updating colors - Costume Color:", costumeColor, "Skirt Color:", skirtColor);
-
     // Обновление цвета костюма
     if (currentModel) {
         var currentModelMaterial = currentModel.children[0].material;
-        console.log("Current model material:", currentModelMaterial);
         if (currentModelMaterial) {
             currentModelMaterial.color = costumeColor;
             currentModelMaterial.needsUpdate = true; // Обновление материала
         }
-    } else {
-        console.log("No current model to update costume color");
     }
 
     // Обновление цвета юбки
     var additionalModel = scene.getObjectByName('additionalModel');
     if (additionalModel) {
         var additionalModelMaterial = additionalModel.children[0].material;
-        console.log("Additional model material:", additionalModelMaterial);
         if (additionalModelMaterial) {
             additionalModelMaterial.color = skirtColor;
             additionalModelMaterial.needsUpdate = true; // Обновление материала
         }
-    } else {
-        console.log("No additional model to update skirt color");
     }
 }
 
+
+
 function updateModelBasedOnCheckboxes() {
-    var additionalModel = scene.getObjectByName('additionalModel');
     var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
     var ledCheckbox = document.getElementById('ledCheckbox');
-    var kineticCheckbox = document.getElementById('kineticCheckbox');
 
-    while (rotationGroup.children.length > 0) {
-        var child = rotationGroup.children[0];
-        rotationGroup.remove(child);
-        scene.remove(child);
+    var additionalModel = scene.getObjectByName('additionalModel');
+
+    // Удаление старой модели юбки
+    if (additionalModel) {
+        rotationGroup.remove(additionalModel);
+        scene.remove(additionalModel);
+        console.log("Old additional model removed");
     }
-    
-    console.log("Checking checkboxes:", fancyEffectCheckbox.checked, ledCheckbox.checked, kineticCheckbox.checked);
 
     if (fancyEffectCheckbox.checked && !ledCheckbox.checked) {
-        if (additionalModel) {
-            rotationGroup.remove(additionalModel);
-            scene.remove(additionalModel);
-            console.log("Additional model removed");
-        }
         loadAdditionalModel('./obj/kar.obj', 0.5, function(obj) {
             rotationGroup.add(obj);
             scene.add(rotationGroup);
-            // Здесь мы также обновляем цвет юбки
+            // Обновление цвета юбки
             updateModelColors();
         });
-    } else {
-        console.log("Additional model not removed");
     }
 }
-
 
 
 
