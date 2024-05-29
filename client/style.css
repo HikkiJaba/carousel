@@ -106,7 +106,7 @@ aside {
     position: fixed;
     top: 98px;
     left: -250px;
-    width: 90px;
+    width: 120px;
     background-color: #f3f1f1;
     transition: left 0.3s ease;
     height: 550px;
@@ -498,6 +498,26 @@ input[type="checkbox"]:checked + label + #skirtOptions {
     font-weight: bold;
 }
 
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip {
+    font-size: 12px;
+    display: none;
+    position: relative;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+
+
 
 
 
@@ -713,7 +733,7 @@ input[type="checkbox"]:checked + label + #skirtOptions {
     }
 
     .icon-img {
-        width: 50px;
+        width: 90px;
     }
 
     .burger-menu {

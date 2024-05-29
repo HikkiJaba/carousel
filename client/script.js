@@ -469,4 +469,19 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       modal.style.display = "none"; 
     }
   });
+
+
+  document.querySelectorAll('.tooltip-container').forEach(container => {
+    const element = container.querySelector('.element');
+    const tooltip = container.querySelector('.tooltip');
+
+    element.addEventListener('mouseover', () => {
+        tooltip.style.display = 'block';
+    });
+
+    element.addEventListener('mouseout', () => {
+        tooltip.style.display = 'none';
+    });
+});
+
   
