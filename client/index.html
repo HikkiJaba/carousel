@@ -89,7 +89,7 @@
         <label for="mirrorBaseCheckbox">Необходимо ли зеркальная основа?</label>
       </div>
       <div id="mirrorShape-div" style="display: none;">
-        <label for="mirrorShape">Форма зеркал:</label>
+        <label for="mirroroption1">Форма зеркал:</label>
         <div class="mirror-options">
             <div class="mirror-option" data-value="broken">
                 <img src="./img/шаг 4, форма зеркала/битое зеркало.jpg" alt="Битое зеркало"> Битое зеркало
@@ -110,7 +110,7 @@
                 <img src="./img/шаг 4, форма зеркала/шестиугольник.jpg" alt="Шестиугольник"> Шестиугольник
             </div>
         </div>
-        <input type="hidden" id="mirrorShape">
+        <input type="hidden" id="mirroroption1">
     </div>
     <div class="button-container">
       <button class="premuim" onclick="nextStep()">Далее</button>
@@ -118,7 +118,7 @@
   </div>
     <div id="step2" class="step mirror-options-div">
       <div id="cutOptions">
-        <label for="mirrorShape2">Тип кроя:</label>
+        <label for="mirroroption2">Тип кроя:</label>
         <div class="mirror-options">
             <div class="mirror-option" data-value="woman-cost">
                 <img src="./img/шаг з, выбираем крой/женские зеркальные костюмы обтягивающие.jpg"> Женский обтягивающий костюм </img>
@@ -130,7 +130,7 @@
                 <img src="./img/шаг з, выбираем крой/мужские зеркальные костюмы.jpg"> Мужской костюм </img>
             </div>
         </div>
-        <input type="hidden" id="mirrorShape2">
+        <input type="hidden" id="mirroroption2">
     </div>
     <div class="button-container">
       <button class="premuim" onclick="nextStep()">Далее</button>
@@ -138,7 +138,7 @@
   </div>
   <div id="step3" class="step mirror-options-div">
     <div id="cutOptions">
-      <label for="mirrorShape3">Юбка:</label>
+      <label for="mirroroption3">Юбка:</label>
       <div class="mirror-options">
           <div class="mirror-option" data-value="carusel">
               <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
@@ -150,7 +150,7 @@
               <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
           </div>
       </div>
-      <input type="hidden" id="mirrorShape3">
+      <input type="hidden" id="mirroroption3">
     </div>
     <div class="button-container">
       <button onclick="nextStep()" class="premuim">Далее</button>
@@ -210,7 +210,6 @@
       </div>
     </div>
     <div class="options-panel1" id="options-size">
-      <!-- Existing content -->
       <button id="openModalBtn" class="premuim">Заказать</button>
     </div>
   </div>
@@ -235,7 +234,7 @@ function nextStep() {
     document.getElementById(`step${currentStep}`).classList.add('active');
 }
 
-// Add event listeners for the increase and decrease buttons
+
 document.getElementById("increase").addEventListener("click", function() {
     increaseCount();
 });
@@ -244,7 +243,6 @@ document.getElementById("decrease").addEventListener("click", function() {
     decreaseCount();
 });
 
-// Function to increase the count
 function increaseCount() {
     let countElement = document.getElementById("count");
     let count = parseInt(countElement.textContent);
@@ -252,11 +250,11 @@ function increaseCount() {
     countElement.textContent = count;
 }
 
-// Function to decrease the count
+
 function decreaseCount() {
     let countElement = document.getElementById("count");
     let count = parseInt(countElement.textContent);
-    // Ensure count doesn't go below 1
+
     if (count > 1) {
         count--;
         countElement.textContent = count;
@@ -289,6 +287,8 @@ function decreaseCount() {
             skirtOptions.style.display = 'none';
         }
       });
+
+
 
       document.addEventListener("DOMContentLoaded", function () {
             let count = 1;

@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Обработка выбора формы зеркала
+
     mirrorOptions.forEach(function(option) {
         option.addEventListener('click', function() {
             mirrorOptions.forEach(function(opt) {
@@ -373,14 +373,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Получение всех блоков с опциями кроя (включая шаги 2 и 3)
+
     var cutOptions = document.querySelectorAll('[id^="cutOptions"]');
 
     cutOptions.forEach(function(cutOption) {
         var options = cutOption.querySelectorAll('.mirror-option');
         var input = cutOption.querySelector('input[type="hidden"]');
         
-        // Обработка выбора типа кроя или юбки
         options.forEach(function(option) {
             option.addEventListener('click', function() {
                 options.forEach(function(opt) {
@@ -398,21 +397,23 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById("userInfoForm").addEventListener("submit", function(event) {
     event.preventDefault();
   
-    // Получаем данные из формы
     var formData = new FormData(this);
   
-    // Получаем цвета костюма и юбки
+ 
     var costumeColor = document.getElementById("costumeColor").value;
     var skirtColor = document.getElementById("skirtColor").value;
   
-    // Получаем значения чекбоксов
+   
     var mirrorBaseCheckbox = document.getElementById("mirrorBaseCheckbox").checked;
     var fancyEffectCheckbox = document.getElementById("fancyEffectCheckbox").checked;
     var ledCheckbox = document.getElementById("ledCheckbox").checked;
     var kineticCheckbox = document.getElementById("kineticCheckbox").checked;
     var count = document.getElementById("count").textContent;
   
-    // Создаем объект с данными
+    var mirroroption1 = document.querySelector('#mirroroption1').value;
+    var mirroroption2 = document.querySelector('#mirroroption2').value;
+    var mirroroption3 = document.querySelector('#mirroroption3').value;
+
     var data = {
       fullName: formData.get('fullName'),
       address: formData.get('address'),
@@ -420,16 +421,16 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       costumeColor: costumeColor,
       skirtColor: skirtColor,
       mirrorBaseCheckbox: mirrorBaseCheckbox,
-      mirrorShape: formData.get('mirrorShape'),
-      mirrorShape2: formData.get('mirrorShape2'),
-      mirrorShape3: formData.get('mirrorShape3'),
+      mirroroption1: mirroroption1,
+      mirroroption2: mirroroption2,
+      mirroroption3: mirroroption3,
       fancyEffectCheckbox: fancyEffectCheckbox,
       ledCheckbox: ledCheckbox,
       kineticCheckbox: kineticCheckbox,
       count: count
     };
   
-    // Отправляем данные на сервер в виде JSON
+  
     fetch('http://localhost:5550/formdata', {
       method: 'POST',
       headers: {
