@@ -408,6 +408,9 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
  
     var costumeColor = document.getElementById("costumeColor").value;
     var skirtColor = document.getElementById("skirtColor").value;
+
+    var priceDisplay = document.getElementById("priceDisplay");
+    var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
   
    
     var mirrorBaseCheckbox = document.getElementById("mirrorBaseCheckbox").checked;
@@ -433,7 +436,8 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       fancyEffectCheckbox: fancyEffectCheckbox,
       ledCheckbox: ledCheckbox,
       kineticCheckbox: kineticCheckbox,
-      count: count
+      count: count,
+      cost: currentPrice
     };
   
   
@@ -585,8 +589,8 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
 function updatePrice3(type) {
     var priceDisplay = document.getElementById("priceDisplay");
     var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
-    var costumeColorInput = document.getElementById("costumeColor");
     var currentCostumeColor = costumeColorInput.value;
+    var costumeColorInput = document.getElementById("costumeColor");
     if (type === 'costume') {  
         console.log(currentCostumeColor);
         if (currentCostumeColor !== "#ffff33") {
