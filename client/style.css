@@ -319,6 +319,14 @@ label {
     background-color: #c9d7e7d1 !important;
 }
 
+.main-word {
+    position: absolute;
+    left: 100px;
+    width: 250px;
+    font-weight: 600;
+    font-size: 125px;
+}
+
 
 #canvas {
     margin-left: 300px;
@@ -805,6 +813,10 @@ input[type="checkbox"]:checked + label + #skirtOptions {
     .fa-user {
         border-left: 1px solid;
         padding-left: 7px;
+    }
+
+    .main-word {
+        display: none;
     }
 }
 

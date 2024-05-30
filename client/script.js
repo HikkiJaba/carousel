@@ -46,7 +46,6 @@ function loadModel(path, scaleFactor) {
             // Создаем стандартный материал для модели
             var material = new THREE.MeshStandardMaterial({ color: 0xffffff });
             obj.children[0].material = material;
-
             scene.add(obj);
             currentModel = obj;
         },
@@ -94,41 +93,25 @@ function loadAdditionalModel(path, scaleFactor, callback) {
 }
 
 
-var ledCheckbox = document.getElementById('ledCheckbox'); 
-var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
-var kineticCheckbox = document.getElementById('kineticCheckbox');
+document.getElementById('ledCheckbox').addEventListener('change', updateModelBasedOnCheckboxes);
+document.getElementById('fancyEffectCheckbox').addEventListener('change', updateModelBasedOnCheckboxes);
+document.getElementById('kineticCheckbox').addEventListener('change', updateModelBasedOnCheckboxes);
+document.getElementById('carusel').addEventListener('click', updateModelBasedOnCheckboxes);
+document.getElementById('fancyCheckbox').addEventListener('change', updateModelBasedOnCheckboxes);
 
-ledCheckbox.addEventListener('change', function () {
-    updateModelBasedOnCheckboxes();
-});
-
-fancyEffectCheckbox.addEventListener('change', function () {
-    updateModelBasedOnCheckboxes();
-});
-
-kineticCheckbox.addEventListener('change', function () {
-    updateModelBasedOnCheckboxes();
-});
-
-
-var costumeColorInput = document.getElementById('costumeColor');
-var skirtColorInput = document.getElementById('skirtColor');
-
-costumeColorInput.addEventListener('input', function() {
+document.getElementById('costumeColor').addEventListener('input', function() {
     updateModelColors();
     updateModelBasedOnCheckboxes();
 });
 
-skirtColorInput.addEventListener('input', function() {
+document.getElementById('skirtColor').addEventListener('input', function() {
     updateModelColors();
     updateModelBasedOnCheckboxes();
 });
-
 
 function updateModelColors() {
-    var costumeColor = new THREE.Color(costumeColorInput.value);
-    var skirtColor = new THREE.Color(skirtColorInput.value);
-
+    var costumeColor = new THREE.Color(document.getElementById('costumeColor').value);
+    var skirtColor = new THREE.Color(document.getElementById('skirtColor').value);
 
     if (currentModel) {
         var currentModelMaterial = currentModel.children[0].material;
@@ -137,7 +120,6 @@ function updateModelColors() {
             currentModelMaterial.needsUpdate = true;
         }
     }
-
 
     var additionalModel = scene.getObjectByName('additionalModel');
     if (additionalModel) {
@@ -149,20 +131,23 @@ function updateModelColors() {
     }
 }
 
-
-
-function updateModelBasedOnCheckboxes() {
-    var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
-    var ledCheckbox = document.getElementById('ledCheckbox');
-    var kineticCheckbox = document.getElementById('kineticCheckbox');
-
-    rotationGroup.children.forEach(function (child) {
+function clearModels() {
+    rotationGroup.children.forEach(function(child) {
         if (child.userData.isAdditionalModel) {
             rotationGroup.remove(child);
             scene.remove(child);
             console.log("Old additional model removed");
         }
     });
+}
+
+function updateModelBasedOnCheckboxes() {
+    var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
+    var ledCheckbox = document.getElementById('ledCheckbox');
+    var kineticCheckbox = document.getElementById('kineticCheckbox');
+
+    // Очищаем сцену от всех дополнительных моделей
+    clearModels();
 
     if (fancyEffectCheckbox.checked) {
         if (ledCheckbox.checked && kineticCheckbox.checked) {
@@ -192,9 +177,6 @@ function updateModelBasedOnCheckboxes() {
         }
     }
 }
-
-
-
 
 
 
@@ -273,6 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
         iconButtons.forEach(btn => {
             btn.classList.remove('active-icon-btn');
         });
+        const mainWord = document.querySelector('.main-word');
+        mainWord.style.display = 'none';
     });
 
     iconButtons.forEach(button => {
@@ -545,25 +529,28 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
         var carouselOption = document.getElementById("carusel");
     
         var carouselSelected = carouselOption.classList.contains("selected");
-    
+        const fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
+        const EffectCheckbox = document.getElementById('fancyCheckbox');
 
         if (element.id === "carusel") {
 
             if (!carouselSelected) {
-
-                carouselOption.classList.add("selected");
+                loadModel('./obj/flex1.obj', 1); 
                 currentPrice += 1000;
+                fancyEffectCheckbox.checked = !fancyEffectCheckbox.checked;
             }
         } else {
 
             if (carouselSelected) {
- 
+                
                 currentPrice -= 1000;
                 carouselOption.classList.remove("selected");
+                clearModels();
+                loadModel("./obj/telokar.obj", 0.8); 
+                fancyEffectCheckbox.checked = !fancyEffectCheckbox.checked; 
             }
-        }
-    
-        priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+        }    
+        priceDisplay.innerText = "Текущая цена: $" + currentPrice;;
     }
 
 
@@ -588,7 +575,7 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
         var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
 
         var kineticCheckbox = document.getElementById("kineticCheckbox");
-       
+
         if (kineticCheckbox.checked) {
             currentPrice += 1000; 
         } else {
