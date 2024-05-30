@@ -171,6 +171,12 @@ function updateModelBasedOnCheckboxes() {
             // Обновление цвета юбки
             updateModelColors();
         });
+    } else if (fancyEffectCheckbox.checked && ledCheckbox.checked) {
+        loadAdditionalModel('./obj/lightkar.obj', 0.5, function(obj) {
+            rotationGroup.add(obj);
+
+            updateModelColors();
+        });
     }
 }
 
@@ -484,4 +490,122 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
     });
 });
 
+ function updatePrice() {
+      var checkbox = document.getElementById("mirrorBaseCheckbox");
+      var priceDisplay = document.getElementById("priceDisplay");
+      var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+      
+      if (checkbox.checked) {
+        // Если флажок установлен, увеличить цену на 2000
+        currentPrice += 2000;
+      } else {
+        // Если флажок не установлен, уменьшить цену на 2000
+        currentPrice -= 2000;
+      }
+
+      // Обновить отображение цены
+      priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+    }
+    function updatePrice() {
+        var checkbox = document.getElementById("mirrorBaseCheckbox");
+        var priceDisplay = document.getElementById("priceDisplay");
+        var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+        
+        if (checkbox.checked) {
+            currentPrice += 2000;
+        } else {
+            currentPrice -= 2000;
+        }
+  
+        priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+    }
+
+    function toggleSelect(element) {
+        var priceDisplay = document.getElementById("priceDisplay");
+        var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+        var carouselOption = document.getElementById("carusel");
+    
+        // Проверяем, была ли опция "Карусель" ранее выбрана
+        var carouselSelected = carouselOption.classList.contains("selected");
+    
+        // Если выбрана опция "Карусель"
+        if (element.id === "carusel") {
+            // Если опция "Карусель" уже выбрана, не делаем никаких изменений
+            if (!carouselSelected) {
+                // Если опция "Карусель" не была ранее выбрана, выбираем её и добавляем 1000 долларов
+                carouselOption.classList.add("selected");
+                currentPrice += 1000;
+            }
+        } else {
+            // Если выбрана другая опция
+            if (carouselSelected) {
+                // Если опция "Карусель" была ранее выбрана и пользователь выбирает другую опцию, убираем 1000 долларов
+                currentPrice -= 1000;
+                carouselOption.classList.remove("selected");
+            }
+        }
+    
+        priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+    }
+
+
+    function updatePrice1() {
+        var priceDisplay = document.getElementById("priceDisplay");
+        var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+        
+        var ledCheckbox = document.getElementById("ledCheckbox");
+    
+        if (ledCheckbox.checked) {
+            currentPrice += 500; 
+        } else {
+            currentPrice -= 500;
+        }
+    
+
+        priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+    }
+
+    function updatePrice2() {
+        var priceDisplay = document.getElementById("priceDisplay");
+        var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+
+        var kineticCheckbox = document.getElementById("kineticCheckbox");
+       
+        if (kineticCheckbox.checked) {
+            currentPrice += 1000; 
+        } else {
+            currentPrice -= 1000;
+        }
+    
+
+        priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+    }
+
+
+function updatePrice3(type) {
+    var priceDisplay = document.getElementById("priceDisplay");
+    var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
+    var costumeColorInput = document.getElementById("costumeColor");
+    var currentCostumeColor = costumeColorInput.value;
+    if (type === 'costume') {  
+        console.log(currentCostumeColor);
+        if (currentCostumeColor !== "#ffff33") {
+            currentPrice += 100;
+        }
+    } else if (type === 'skirt') {
+        var skirtColorInput = document.getElementById("skirtColor");
+        var currentSkirtColor = skirtColorInput.value;
+        if ((currentSkirtColor !== "#ff3300") && (currentCostumeColor == "#ffff33")) {
+            currentPrice += 100;
+        }
+    }
+
+    priceDisplay.innerText = "Текущая цена: $" + currentPrice;
+}
+    
+    
+    
+    
+    
+    
   

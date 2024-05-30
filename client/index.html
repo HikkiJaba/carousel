@@ -22,7 +22,6 @@
       </div>
       <h1><a href="index.html" class="logo">Конструктор костюмов</a></h1>
       <div class="header-div">
-        <button class="save">Оформить оплату</button>
         <div class="audio-player">
           <audio loop id="audio" preload="auto">
               <source src="./audio/Chill-Lofi.mp3" type="audio/mpeg" />
@@ -122,9 +121,9 @@
 
     <div class="options-panel">
       <div id="step1" class="step active mirror-options-div">
-      <div>
+      <div onclick="updatePrice()">
         <input type="checkbox" id="mirrorBaseCheckbox">
-        <label for="mirrorBaseCheckbox">Необходимо ли зеркальная основа?</label>
+        <label for="mirrorBaseCheckbox">Необходима ли зеркальная основа?</label>
       </div>
       <div id="mirrorShape-div" style="display: none;">
         <label for="mirroroption1">Форма зеркал:</label>
@@ -178,15 +177,15 @@
     <div id="cutOptions">
       <label for="mirroroption3">Юбка:</label>
       <div class="mirror-options">
-          <div class="mirror-option" data-value="carusel">
-              <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
-          </div>
-          <div class="mirror-option" data-value="balerin">
-              <img src="./img/шаг 5, добавить юбку/классическая юбка балерины.jpg"> Юбка балерины </img>
-          </div>
-          <div class="mirror-option" data-value="balerin-modern">
-              <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
-          </div>
+        <div class="mirror-option" data-value="carusel" id="carusel" onclick="toggleSelect(this)">
+          <img src="./img/шаг 5, добавить юбку/карусель.jpg"> Карусель </img>
+      </div>
+      <div class="mirror-option" data-value="balerin" onclick="toggleSelect(this)">
+          <img src="./img/шаг 5, добавить юбку/классическая юбка балерины.jpg"> Юбка балерины </img>
+      </div>
+      <div class="mirror-option" data-value="balerin-modern" onclick="toggleSelect(this)">
+          <img src="./img/шаг 5, добавить юбку/юбка балерины модерн.jpg"> Альтернативная юбка балерины </img>
+      </div>
       </div>
       <input type="hidden" id="mirroroption3">
     </div>
@@ -206,7 +205,7 @@
     </div>
   </div>
   <div id="step5" class="step">
-    <div>
+    <div onclick="updatePrice1()">
       <input type="checkbox" id="ledCheckbox">
       <label for="ledCheckbox">Добавить диоды?</label>
     </div>
@@ -215,7 +214,7 @@
     </div>
   </div>
   <div id="step6" class="step">
-    <div>
+    <div onclick="updatePrice2()">
       <input type="checkbox" id="kineticCheckbox">
       <label for="kineticCheckbox">Добавить кинетику?</label>
     </div>
@@ -226,7 +225,7 @@
   <div id="step7" class="step">
     <div id="cutOptions">
       <label for="mirrorShape2">Цвет костюма:</label>
-      <input type="color" id="costumeColor" name="costumeColor" value="#939191">
+      <input type="color" id="costumeColor" name="costumeColor" value="#FFFF33" onchange="updatePrice3('costume')">
       <input type="hidden" id="mirrorShape2">
   </div>
   <div class="button-container">
@@ -236,14 +235,14 @@
   <div id="step8" class="step">
     <div id="cutOptions">
       <label for="mirrorShape3">Цвет юбки:</label>
-      <input type="color" id="skirtColor" name="skirtColor" value="#939191">
+      <input type="color" id="skirtColor" name="skirtColor" value="#FF3300" onchange="updatePrice3('skirt')">
       <input type="hidden" id="mirrorShape3">
   </div>
     <div class="counter-container">
       <div class="label">Количество</div>
       <div class="counter">
           <button id="decrease">-</button>
-          <span id="count">1</span>
+          <span id="count" oninput="updatePrice4()">1</span>
           <button id="increase">+</button>
       </div>
     </div>
@@ -251,6 +250,7 @@
       <button id="openModalBtn" class="premuim">Заказать</button>
     </div>
   </div>
+  <div class="price-display" id="priceDisplay">Текущая цена: $0</div>
 </div>
     <main id="main-container">
       <div>
@@ -301,10 +301,8 @@ function decreaseCount() {
 
     function submitForm() {
         alert("Заказ оформлен!");
-        // Add form submission logic here
     }
 
-    // Initialize the first step
     document.getElementById(`step${currentStep}`).classList.add('active');
       document.getElementById('mirrorBaseCheckbox').addEventListener('change', function() {
           var mirrorShape = document.getElementById('mirrorShape-div');
