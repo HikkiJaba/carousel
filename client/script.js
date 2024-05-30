@@ -129,22 +129,22 @@ function updateModelColors() {
     var costumeColor = new THREE.Color(costumeColorInput.value);
     var skirtColor = new THREE.Color(skirtColorInput.value);
 
-    // Обновление цвета костюма
+
     if (currentModel) {
         var currentModelMaterial = currentModel.children[0].material;
         if (currentModelMaterial) {
             currentModelMaterial.color = costumeColor;
-            currentModelMaterial.needsUpdate = true; // Обновление материала
+            currentModelMaterial.needsUpdate = true;
         }
     }
 
-    // Обновление цвета юбки
+
     var additionalModel = scene.getObjectByName('additionalModel');
     if (additionalModel) {
         var additionalModelMaterial = additionalModel.children[0].material;
         if (additionalModelMaterial) {
             additionalModelMaterial.color = skirtColor;
-            additionalModelMaterial.needsUpdate = true; // Обновление материала
+            additionalModelMaterial.needsUpdate = true;
         }
     }
 }
@@ -154,31 +154,46 @@ function updateModelColors() {
 function updateModelBasedOnCheckboxes() {
     var fancyEffectCheckbox = document.getElementById('fancyEffectCheckbox');
     var ledCheckbox = document.getElementById('ledCheckbox');
+    var kineticCheckbox = document.getElementById('kineticCheckbox');
 
-    var additionalModel = scene.getObjectByName('additionalModel');
+    rotationGroup.children.forEach(function (child) {
+        if (child.userData.isAdditionalModel) {
+            rotationGroup.remove(child);
+            scene.remove(child);
+            console.log("Old additional model removed");
+        }
+    });
 
-    // Удаление старой модели юбки
-    if (additionalModel) {
-        rotationGroup.remove(additionalModel);
-        scene.remove(additionalModel);
-        console.log("Old additional model removed");
-    }
-
-    if (fancyEffectCheckbox.checked && !ledCheckbox.checked) {
-        loadAdditionalModel('./obj/kar.obj', 0.5, function(obj) {
-            rotationGroup.add(obj);
-            scene.add(rotationGroup);
-            // Обновление цвета юбки
-            updateModelColors();
-        });
-    } else if (fancyEffectCheckbox.checked && ledCheckbox.checked) {
-        loadAdditionalModel('./obj/lightkar.obj', 0.5, function(obj) {
-            rotationGroup.add(obj);
-
-            updateModelColors();
-        });
+    if (fancyEffectCheckbox.checked) {
+        if (ledCheckbox.checked && kineticCheckbox.checked) {
+            loadAdditionalModel('./obj/lightkar.obj', 0.5, function(obj) {
+                rotationGroup.add(obj);
+                scene.add(rotationGroup);
+                updateModelColors();
+            });
+        } else if (ledCheckbox.checked) {
+            loadAdditionalModel('./obj/lightkar.obj', 0.5, function(obj) {
+                rotationGroup.add(obj);
+                scene.add(rotationGroup);
+                updateModelColors();
+            });
+        } else if (kineticCheckbox.checked) {
+            loadAdditionalModel('./obj/kar.obj', 0.5, function(obj) {
+                rotationGroup.add(obj);
+                scene.add(rotationGroup);
+                updateModelColors();
+            });
+        } else {
+            loadAdditionalModel('./obj/kar.obj', 0.5, function(obj) {
+                rotationGroup.add(obj);
+                scene.add(rotationGroup);
+                updateModelColors();
+            });
+        }
     }
 }
+
+
 
 
 
@@ -354,13 +369,13 @@ setTimeout(() => {
 
 animate();
 document.addEventListener('DOMContentLoaded', function() {
-    // Получение элементов для первого шага
+    
     var mirrorBaseCheckbox = document.getElementById('mirrorBaseCheckbox');
     var mirrorShapeDiv = document.getElementById('mirrorShape-div');
     var mirrorOptions = mirrorShapeDiv ? mirrorShapeDiv.querySelectorAll('.mirror-option') : [];
     var mirrorShapeInput = document.getElementById('mirrorShape');
 
-    // Показ/скрытие блока формы зеркала при изменении состояния чекбокса
+   
     mirrorBaseCheckbox.addEventListener('change', function() {
         if (mirrorShapeDiv) {
             mirrorShapeDiv.style.display = mirrorBaseCheckbox.checked ? 'block' : 'none';
@@ -500,14 +515,14 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
       var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
       
       if (checkbox.checked) {
-        // Если флажок установлен, увеличить цену на 2000
+
         currentPrice += 2000;
       } else {
-        // Если флажок не установлен, уменьшить цену на 2000
+  
         currentPrice -= 2000;
       }
 
-      // Обновить отображение цены
+ 
       priceDisplay.innerText = "Текущая цена: $" + currentPrice;
     }
     function updatePrice() {
@@ -529,21 +544,20 @@ document.getElementById("userInfoForm").addEventListener("submit", function(even
         var currentPrice = parseFloat(priceDisplay.innerText.replace("Текущая цена: $", ""));
         var carouselOption = document.getElementById("carusel");
     
-        // Проверяем, была ли опция "Карусель" ранее выбрана
         var carouselSelected = carouselOption.classList.contains("selected");
     
-        // Если выбрана опция "Карусель"
+
         if (element.id === "carusel") {
-            // Если опция "Карусель" уже выбрана, не делаем никаких изменений
+
             if (!carouselSelected) {
-                // Если опция "Карусель" не была ранее выбрана, выбираем её и добавляем 1000 долларов
+
                 carouselOption.classList.add("selected");
                 currentPrice += 1000;
             }
         } else {
-            // Если выбрана другая опция
+
             if (carouselSelected) {
-                // Если опция "Карусель" была ранее выбрана и пользователь выбирает другую опцию, убираем 1000 долларов
+ 
                 currentPrice -= 1000;
                 carouselOption.classList.remove("selected");
             }
