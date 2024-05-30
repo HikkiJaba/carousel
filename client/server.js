@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = 5550;
+const port = 5551;
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -68,6 +68,29 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Маршрут для получения списка пользователей
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find({}, 'username'); // Получить только имена пользователей
+    res.json(users);
+  } catch (error) {
+    console.error('Ошибка при получении списка пользователей:', error);
+    res.status(500).send('Ошибка при получении списка пользователей');
+  }
+});
+
+// Маршрут для удаления пользователя
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    res.status(200).send('Пользователь удален успешно');
+  } catch (error) {
+    console.error('Ошибка при удалении пользователя:', error);
+    res.status(500).send('Ошибка при удалении пользователя');
+  }
+});
+
 // Маршруты для костюмов
 app.get('/costumes', async (req, res) => {
   try {
@@ -109,8 +132,8 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   service: 'yandex',
   auth: {
-    user: '_', /*почтовый ящик, который будет отправлять письмо менеджеру (Тестил на яндексе)*/
-    pass: '_'
+    user: 'YanBrait@yandex.ru', /*почтовый ящик, который будет отправлять письмо менеджеру (Тестил на яндексе)*/
+    pass: 'EgOr!41427'
   }
 });
 
@@ -143,8 +166,8 @@ app.post('/formdata', async (req, res) => {
     
     // Отправляем письмо
     await transporter.sendMail({
-      from: '_',
-      to: '_',
+      from: 'YanBrait@yandex.ru',
+      to: 'YanBrait@yandex.ru',
       subject: 'Заказ костюма',
       text: mailText
     });
@@ -154,9 +177,5 @@ app.post('/formdata', async (req, res) => {
     console.error('Ошибка при отправке письма:', error);
     res.status(500).send('Произошла ошибка при отправке данных письмом');
   }
-});
-
-app.listen(5500, () => {
-  console.log('Server is running on port 5500');
 });
 

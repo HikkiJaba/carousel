@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ панель</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Список пользователей</h1>
+    <ul id="user-list"></ul>
+    <script>
+      async function fetchUsers() {
+        try {
+          const response = await fetch('http://localhost:5551/users');
+          const users = await response.json();
+          const userList = document.getElementById('user-list');
+          userList.innerHTML = '';
+  
+          users.forEach(user => {
+            const listItem = document.createElement('li');
+            listItem.textContent = user.username;
+  
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Удалить';
+            deleteButton.onclick = async () => {
+              await deleteUser(user._id);
+              fetchUsers();
+            };
+  
+            listItem.appendChild(deleteButton);
+            userList.appendChild(listItem);
+          });
+        } catch (error) {
+          console.error('Ошибка при получении списка пользователей:', error);
+        }
+      }
+  
+      async function deleteUser(id) {
+        try {
+          await fetch(`http://localhost:5551/users/${id}`, {
+            method: 'DELETE'
+          });
+        } catch (error) {
+          console.error('Ошибка при удалении пользователя:', error);
+        }
+      }
+      fetchUsers();
+    </script>
+  </body>
+</html>

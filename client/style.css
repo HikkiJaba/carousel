@@ -92,6 +92,15 @@ header {
     background: linear-gradient(180deg, #c9d7e7 0%, rgba(200, 212, 224, 0.65) 100%);
 }
 
+#user-list {
+    width: 50%;
+    background: linear-gradient(180deg, #c9d7e7 0%, rgba(200, 212, 224, 0.65) 100%) !important; 
+}
+
+#user-list button {
+    margin-left: 25px;
+}
+
 .fa-user {
     border-left: 1px solid;
     padding-left: 7px;
